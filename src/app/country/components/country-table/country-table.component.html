@@ -1,0 +1,33 @@
+<div class="container-table" #table>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Bandera</th>
+                <th>Nmbre</th>
+                <th>Población</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of getCountriesForPage(); let i = index">
+                <td>{{i + 1}}</td>
+                <td><img [src]="country.flags.svg" [alt]="country.name.common"></td>
+                <td>{{country.name.common}}</td>
+                <td>{{country.population | number}}</td>
+                <td><a (click)="showInfoCountry(country.cca3)" class="link">Ver mas...</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+<div>
+    <mat-paginator [length]="countries.length"
+        [pageSize]="20"
+        aria-label="Select page"
+        >
+    </mat-paginator>
+
+</div>
+
+<country-show-info-country [codeCca3]="codeCca3"></country-show-info-country>
