@@ -4,6 +4,7 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { CountryTableComponent } from './components/country-table/country-table.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { ShowInfoCountryComponent } from './components/show-info-country/show-info-country.component';
+import { ShowDialog } from './components/show-info-country/show-info-country.component';
 
 
 
@@ -12,6 +13,7 @@ import { ShowInfoCountryComponent } from './components/show-info-country/show-in
     LayoutComponent,
     CountryTableComponent,
     ShowInfoCountryComponent,
+    ShowDialog
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { ShowInfoCountryComponent } from './components/show-info-country/show-in
   ],
   exports: [
     LayoutComponent,
-    ShowInfoCountryComponent
+    ShowInfoCountryComponent,
+    ShowDialog
   ]
 })
 export class CountryModule { }

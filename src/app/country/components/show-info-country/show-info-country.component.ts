@@ -1,11 +1,14 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { MatDialog,   } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 import { CountriesService } from '../../services/countries.service';
 import { Country } from '../../interfaces/country.interface';
+
 @Component({
   selector: 'country-show-info-country',
-  templateUrl: './show-info-country.component.html',
+  templateUrl: 'dialog.html',
   styleUrls: ['./show-info-country.component.css'],
 })
 export class ShowInfoCountryComponent implements OnChanges {
@@ -15,50 +18,57 @@ export class ShowInfoCountryComponent implements OnChanges {
   @Input()
   codeCca3: string = '';
 
-  constructor( 
-    private showInfoConutry: CountriesService,
-    public dialog: MatDialog
-  ){}
+  constructor(
+    private showInfoConutryService: CountriesService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-
     this.codeCca3 = changes['codeCca3'].currentValue;
 
-    if( this.codeCca3 ) {
-      this.getInfoCountryByCode( this.codeCca3 )
+    if (this.codeCca3) {
+      return this.getInfoCountryByCode(this.codeCca3)
     }
-    
   }
 
-  getInfoCountryByCode( code: string ) {
+  getInfoCountryByCode(code: string) {
 
-    this.showInfoConutry.getInfoCountryByCode( code )
-    .subscribe(
-      country => {
-        if( !country ) return;
-        this.country = country
-        this.openDialog()
-        
-      }
-     )
-    
-  }    
+    this.showInfoConutryService.getInfoCountryByCode(code)
+      .subscribe(
+        country => {
+          if (!country) return;
+          this.country = country
+          this.openDialog()
+        }
+      )
+  }
 
   openDialog(): void {
-
-    this.dialog.open(DialogExampleComponent);
-
-
+    this.dialog.open(ShowDialog, {
+      data: {
+        country: this.country
+      },
+      closeOnNavigation: true,
+      disableClose: true
+    })
   }
 }
 
 
-
-
 @Component({
-  selector: 'app-dialog-example',
-  templateUrl: 'dialog.html',
+  selector: 'dialog-elements-example-dialog',
+  templateUrl: 'show-info-country.component.html',
+  styleUrls: ['./show-info-country.component.css'],
+
+
 })
-export class DialogExampleComponent {
-  constructor() {}
+export class ShowDialog {
+
+  country: Country[];
+  constructor(
+    @Inject(MAT_DIALOG_DATA) { country }: { country: Country[] },
+
+  ) {
+    this.country = country
+  }
 }

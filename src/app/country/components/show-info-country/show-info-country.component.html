@@ -1,25 +1,47 @@
-<!-- 
 <div *ngIf="country && country.length === 1">
-    <div class="title">Busqueda</div>
-    <div class="container-country">
-        <div class="name-country">
-            {{ country[0].name.common }}
-        </div>
-        <div class="container-flag">
-            <span>Bandera:</span>
-            <td><img [src]="country[0].flags.svg" [alt]="country[0].name.common"></td>
-        </div>
-        <div class="container-traduction">
-            <h2>Traduccion</h2>
-            <div></div>
-        </div>
+    <div class="text-center">
+        <h2 mat-dialog-title>Busqueda</h2>
     </div>
-    <div class="container-info">
-        <h2>informacion</h2>
-        <div class="info">
-            <div></div>
-        </div>
-    </div>
-    <div class="footer"></div>
-</div> -->
 
+
+    <mat-dialog-content class="mat-typography">
+        <h3>Pais: {{country[0].name.common}}</h3>
+        <p>Bandera:</p>
+        <td><img [src]="country[0].flags.svg" [alt]="country[0].name.common"></td>
+
+        <h3>Informacion</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">Poblacion: {{country[0].population}}</th>
+                    
+                </tr>
+                <tr>
+                    <th scope="row">Codigo numerico: {{country[0].ccn3}} </th>
+                </tr>
+                <tr>
+                    <th scope="row">Codigo alpha2: {{country[0].cca2}} </th>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Traduccion</h3>
+        <div >
+            <table>
+                <tbody class="d-flex flex-row flex-wrap">
+                    <tr class="me-3" *ngFor="let translation of country[0].translations | keyvalue">
+                        <th scope="row">{{ translation.value.common }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="text-center" mat-dialog-title>Detalles del pais</h2>
+
+
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cerrar</button>
+    </mat-dialog-actions>
+</div>
