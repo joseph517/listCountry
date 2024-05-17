@@ -4,37 +4,34 @@
     </div>
 
 
-    <mat-dialog-content class="mat-typography">
-        <h3>Pais: {{country[0].name.common}}</h3>
-        <p>Bandera:</p>
-        <td><img [src]="country[0].flags.svg" [alt]="country[0].name.common"></td>
+    <mat-dialog-content class="mat-typography container">
+        <h3 class="fs-1">Pais: {{country[0].name.common}}</h3>
+        <div class="d-flex mb-3">
+            <div>
+                <p class="fs-2">Bandera:</p>
+                <td><img [src]="country[0].flags.svg" [alt]="country[0].name.common"></td>
+            </div>
+            <div class="d-flex flex-column ms-5" style="width: 100%;" >
+                <h3 class="fs-2">Informacion</h3>
+                <div class="card" >
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">APoblacion: {{country[0].population}}</li>
+                      <li class="list-group-item">Codigo numerico: {{country[0].ccn3}}</li>
+                      <li class="list-group-item">Codigo alpha2: {{country[0].cca2}}</li>
+                    </ul>
+                  </div>
+            </div>
+        </div>
 
-        <h3>Informacion</h3>
-        <table>
-            <tbody>
-                <tr>
-                    <th scope="row">Poblacion: {{country[0].population}}</th>
-                    
-                </tr>
-                <tr>
-                    <th scope="row">Codigo numerico: {{country[0].ccn3}} </th>
-                </tr>
-                <tr>
-                    <th scope="row">Codigo alpha2: {{country[0].cca2}} </th>
-
-                </tr>
-            </tbody>
-        </table>
-
-        <h3>Traduccion</h3>
-        <div >
-            <table>
-                <tbody class="d-flex flex-row flex-wrap">
-                    <tr class="me-3" *ngFor="let translation of country[0].translations | keyvalue">
-                        <th scope="row">{{ translation.value.common }}</th>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+            <div>
+                <h2 class="fs-2">Traduccion</h2>
+                <div class="d-flex flex-row flex-wrap">
+                    <ul class="list-group border-0" *ngFor="let translation of country[0].translations | keyvalue" >
+                        <li class="list-group-item active rounded-2 m-1">{{ translation.value.common }}</li>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         <h2 class="text-center" mat-dialog-title>Detalles del pais</h2>
