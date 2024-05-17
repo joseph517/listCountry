@@ -35,4 +35,14 @@ export class CountriesService {
     )
   }
 
+  getCountrybyName( country: string ): Observable<Country[]> {
+    if( !country ) return of([])
+
+    const url = `${this.apiUrl}/name/${country}`;
+    return this.http.get<Country[]>(url)
+    .pipe(
+      map( countries => countries.length ? countries : [] ),
+      catchError( () => of([]) )
+    )
+  }
 }

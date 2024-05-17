@@ -1,0 +1,27 @@
+<!-- <input class="form-control mb-3" 
+    type="text" 
+    placeholder="Busqueda por pais..." 
+    (keyup)="onKeyPress(txtInput.value)"
+    #txtInput> -->
+
+
+<input class="form-control mb-3" 
+    type="text" 
+    placeholder="Busqueda por pais..." 
+    #txtInput 
+    matInput 
+    [formControl]="myControl" 
+    [matAutocomplete]="auto"
+>
+
+<mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option}}
+    </mat-option>
+</mat-autocomplete>
+
+<div class="row">
+    <div class="col">
+        <country-loading-spinner *ngIf="isLoading">loading</country-loading-spinner>
+    </div>
+</div>
