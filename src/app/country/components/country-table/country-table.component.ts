@@ -1,6 +1,8 @@
 import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { Country } from '../../interfaces/country.interface';
 import { MatPaginator } from '@angular/material/paginator';
+import { ShowInfoCountryComponent } from '../show-info-country/show-info-country.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'country-country-table',
@@ -9,10 +11,16 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class CountryTableComponent {
 
+
+  constructor(
+    public dialog: MatDialog
+  ) { }
+
   @Input()
   public countries: Country[] = [];
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @Input() codeCca3: string = '';
+  @Input() 
+  codeCca3: string = '';
 
   getCountriesForPage() {
     const pageIndex = this.paginator?.pageIndex;
@@ -22,9 +30,10 @@ export class CountryTableComponent {
     return this.countries.slice(startIndex, endIndex);
   }
   showInfoCountry(codeCca3: string) {
-    
-    this.codeCca3 = codeCca3;
-    
+    this.dialog.open(ShowInfoCountryComponent, {
+      data: {
+        codeCca3
+      }
+    })
   }
-
 }

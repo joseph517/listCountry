@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { debounceTime, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs';
+import { debounceTime, Observable, of } from 'rxjs';
 import { CountriesService } from '../../services/countries.service';
 
 @Component({
@@ -31,12 +30,6 @@ export class SearchCountryByNameComponent implements OnInit {
       this.isLoading = Boolean(value);
       this.getCountrybyName( value )
     });
-
-    this.filteredOptions = this.myControl.valueChanges
-    .pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    )
   }
 
   private _filter(value: string): string[] {
@@ -52,6 +45,7 @@ export class SearchCountryByNameComponent implements OnInit {
     .subscribe( countries => {
       this.countries = countries.map( country => country.name.common )
       console.log(this.countries);
+      this.filteredOptions = of(this._filter( country ))
       this.isLoading = false
     }
   )
